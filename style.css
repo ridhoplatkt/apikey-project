@@ -1,0 +1,225 @@
+/* ============================================================
+   Pure monochrome theme — hanya transform + opacity untuk animasi
+   ============================================================ */
+:root{
+  --bg:#000;
+  --fg:#fff;
+  --muted:#888;
+  --border:#222;
+  --hover:#111;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html,body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Courier New",monospace;
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+body{cursor:none}
+
+/* -------- Custom cursor dot (lerp via rAF) -------- */
+.cursor{
+  position:fixed; top:0; left:0;
+  width:10px; height:10px;
+  border-radius:50%;
+  background:#fff;
+  pointer-events:none;
+  z-index:9999;
+  mix-blend-mode:difference;
+  will-change:transform;
+  transform:translate(-50%,-50%);
+}
+@media (hover:none){ .cursor{display:none} body{cursor:auto} }
+
+/* -------- Fade-in -------- */
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(10px)}
+  to  {opacity:1; transform:translateY(0)}
+}
+.fade-in{animation:fadeIn .65s cubic-bezier(.2,.8,.2,1) both}
+header.fade-in{animation-delay:.00s}
+main .card:nth-of-type(1){animation-delay:.06s}
+main .card:nth-of-type(2){animation-delay:.12s}
+main .card:nth-of-type(3){animation-delay:.18s}
+footer.fade-in{animation-delay:.24s}
+
+/* -------- Header -------- */
+header{padding:44px 20px 8px; text-align:center}
+header .logo{display:flex; justify-content:center; margin-bottom:16px}
+header h1{
+  font-size:18px; font-weight:600;
+  letter-spacing:.35em;
+  text-indent:.35em;
+}
+header .muted{
+  color:var(--muted);
+  font-size:11px;
+  letter-spacing:.1em;
+  margin-top:10px;
+}
+
+/* -------- Layout -------- */
+main{
+  max-width:620px;
+  margin:0 auto;
+  padding:24px 20px 40px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.card{
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:22px 20px;
+  background:#000;
+  transition:border-color .25s ease, transform .25s ease;
+}
+.card:hover{border-color:#333}
+
+.card h2{
+  font-size:11px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-weight:500;
+  margin-bottom:16px;
+}
+
+/* -------- Buttons -------- */
+.btn{
+  position:relative;
+  overflow:hidden;
+  display:inline-block;
+  background:#fff;
+  color:#000;
+  border:1px solid #fff;
+  padding:11px 20px;
+  font-family:inherit;
+  font-size:11px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  cursor:none;
+  border-radius:6px;
+  transition:transform .18s cubic-bezier(.2,.8,.2,1),
+             background .2s ease, color .2s ease, border-color .2s ease;
+  will-change:transform;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn:hover{transform:scale(1.02)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{
+  background:transparent;
+  color:#fff;
+  border-color:#333;
+}
+.btn.ghost:hover{border-color:#fff; background:var(--hover)}
+
+/* Ripple via ::after */
+.btn::after{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  background:radial-gradient(circle at center, rgba(0,0,0,.35) 0%, transparent 55%);
+  opacity:0;
+  transform:scale(.2);
+  transition:opacity .55s ease, transform .55s ease;
+  pointer-events:none;
+}
+.btn.ghost::after{
+  background:radial-gradient(circle at center, rgba(255,255,255,.35) 0%, transparent 55%);
+}
+.btn:active::after{
+  opacity:1;
+  transform:scale(1.6);
+  transition:none;
+}
+
+/* -------- Input -------- */
+input[type=text]{
+  width:100%;
+  background:#000;
+  border:1px solid var(--border);
+  color:#fff;
+  padding:13px 14px;
+  font-family:inherit;
+  font-size:12px;
+  letter-spacing:.04em;
+  border-radius:6px;
+  outline:none;
+  transition:border-color .2s ease;
+}
+input[type=text]:focus{border-color:#fff}
+input[type=text]::placeholder{color:#444}
+
+.row{display:flex; gap:10px; margin-top:14px; flex-wrap:wrap}
+
+/* -------- Output -------- */
+.output{
+  background:#000;
+  border:1px solid var(--border);
+  padding:16px;
+  font-family:inherit;
+  font-size:11.5px;
+  line-height:1.55;
+  color:#ddd;
+  border-radius:6px;
+  min-height:140px;
+  max-height:340px;
+  overflow:auto;
+  white-space:pre-wrap;
+  word-break:break-all;
+}
+.output::-webkit-scrollbar{width:6px;height:6px}
+.output::-webkit-scrollbar-thumb{background:#333; border-radius:3px}
+
+.status{
+  margin-top:12px;
+  font-size:11px;
+  letter-spacing:.08em;
+  color:var(--muted);
+  min-height:16px;
+  transition:color .2s ease;
+}
+.status.ok { color:#fff }
+.status.err{ color:#999 }
+
+/* -------- Spinner -------- */
+.spinner{
+  display:inline-block;
+  width:16px; height:16px;
+  margin-left:12px;
+  border:2px solid #333;
+  border-top-color:#fff;
+  border-radius:50%;
+  vertical-align:middle;
+  animation:spin .8s linear infinite;
+  will-change:transform;
+}
+.spinner.hidden{display:none}
+@keyframes spin{ to{transform:rotate(360deg)} }
+
+/* -------- Shake (invalid key) -------- */
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  15%    {transform:translateX(-8px)}
+  30%    {transform:translateX( 8px)}
+  45%    {transform:translateX(-6px)}
+  60%    {transform:translateX( 6px)}
+  75%    {transform:translateX(-3px)}
+}
+.shake{animation:shake .42s cubic-bezier(.36,.07,.19,.97) both}
+
+/* -------- Footer -------- */
+footer{
+  text-align:center;
+  padding:28px 20px 40px;
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:.15em;
+}
