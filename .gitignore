@@ -1,0 +1,16 @@
+# Build artifacts
+backend/build/
+backend/apiserver
+backend/include/
+frontend/generate_css
+frontend/style-mega.css
+
+# Runtime
+keys.db
+*.log
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
