@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Key System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+
+<header class="fade-in">
+  <div class="logo">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="18" cy="18" r="15" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="18" cy="18" r="3"  fill="#fff"/>
+      <path d="M18 3 L18 8 M18 28 L18 33 M3 18 L8 18 M28 18 L33 18"
+            stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <h1>API&nbsp;KEY&nbsp;SYSTEM</h1>
+  <p class="muted">C++17 backend &nbsp;·&nbsp; pure monochrome UI</p>
+</header>
+
+<main>
+
+  <section class="card fade-in">
+    <h2>01 &nbsp;·&nbsp; Generate API Key</h2>
+    <button id="btn-gen" class="btn">Generate</button>
+    <span id="spinner-gen" class="spinner hidden"></span>
+  </section>
+
+  <section class="card fade-in">
+    <h2>02 &nbsp;·&nbsp; Test API Key</h2>
+    <input id="input-key" type="text" placeholder="paste api key here…" autocomplete="off" spellcheck="false"/>
+    <div class="row">
+      <button id="btn-verify" class="btn">Verify</button>
+      <button id="btn-data"   class="btn">Fetch /data</button>
+      <button id="btn-copy"   class="btn ghost">Copy</button>
+    </div>
+    <span id="spinner-test" class="spinner hidden"></span>
+  </section>
+
+  <section class="card fade-in">
+    <h2>03 &nbsp;·&nbsp; Response</h2>
+    <pre id="output" class="output">// waiting for input…</pre>
+    <div id="status" class="status"></div>
+  </section>
+
+</main>
+
+<footer class="fade-in">
+  <p class="muted">localhost:8080 &nbsp;·&nbsp; pure black &amp; white &nbsp;·&nbsp; no glow, no shadow</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
